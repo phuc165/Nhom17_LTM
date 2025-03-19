@@ -101,5 +101,15 @@ namespace Server
                 statusLabel.Text = "Server Status: Not Running";
             }
         }
+
+
+
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new CaroServer());
+        }
     }
 }
