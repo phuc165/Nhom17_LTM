@@ -594,3 +594,5 @@ FodyWeavers.xsd
 # Additional files built by Visual Studio
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,csharp,visualstudiocode
+/.vs/Nhom17_LTM/v17/.wsuo
+/.vs/slnx.sqlite
