@@ -5,6 +5,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Server\\CaroServer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Server\\CaroServer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Client\\CaroClient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Client\\CaroClient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,15 +30,28 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CaroClient.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Client\\CaroClient.cs",
+              "RelativeDocumentMoniker": "Client\\CaroClient.cs",
+              "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Client\\CaroClient.cs",
+              "RelativeToolTip": "Client\\CaroClient.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-26T05:31:28.691Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "CaroServer.cs",
               "DocumentMoniker": "C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Server\\CaroServer.cs",
               "RelativeDocumentMoniker": "Server\\CaroServer.cs",
               "ToolTip": "C:\\Users\\USER\\Documents\\GitHub\\Nhom17_LTM\\Server\\CaroServer.cs",
               "RelativeToolTip": "Server\\CaroServer.cs",
-              "ViewState": "AgIAANkAAAAAAAAAAAAuwOUAAAAYAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-24T16:44:49.629Z",
+              "WhenOpened": "2025-03-26T05:12:02.936Z",
               "EditorCaption": ""
             }
           ]
