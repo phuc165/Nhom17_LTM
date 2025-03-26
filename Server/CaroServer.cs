@@ -250,6 +250,19 @@ namespace Server
             }
         }
 
+        private void BroadcastToRoom(Room room, string message)
+        {
+            byte[] data = Encoding.ASCII.GetBytes(message);
+            foreach (var client in room.Players)
+            {
+                try
+                {
+                    NetworkStream stream = client.GetStream();
+                    stream.Write(data, 0, data.Length);
+                }
+                catch { }
+            }
+        }
 
         private bool CheckWin(Room room, int row, int col)
         {
