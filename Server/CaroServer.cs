@@ -172,6 +172,85 @@ namespace Server
             }
         }
 
+        private void HandleClient(TcpClient client, Room room, int playerIndex)
+        {
+            NetworkStream stream = client.GetStream();
+            byte[] buffer = new byte[1024];
+
+            try
+            {
+                int bytesRead;
+
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                {
+                    string message = Encoding.ASCII.GetString(buffer, 0, bytesRead);
+                    string command, data;
+                    Common.ParseMessage(message, out command, out data);
+
+                    if (command == "MOVE" && room.GameStatus == Common.GameStatus.Playing && room.CurrentPlayerIndex == playerIndex)
+                    {
+                        string[] coords = data.Split(',');
+                        int row = int.Parse(coords[0]);
+                        int col = int.Parse(coords[1]);
+
+                        if (row >= 0 && row < Common.BOARD_SIZE && col >= 0 && col < Common.BOARD_SIZE &&
+                            room.Board[row, col] == Common.CellState.Empty)
+                        {
+                            room.Board[row, col] = (playerIndex == 0) ? Common.CellState.X : Common.CellState.O;
+                            BroadcastToRoom(room, Common.FormatMessage("MOVE", $"{row},{col},{playerIndex}"));
+
+                            if (CheckWin(room, row, col))
+                            {
+                                room.GameStatus = Common.GameStatus.GameOver;
+                                BroadcastToRoom(room, Common.FormatMessage("GAMEOVER", $"Player {((playerIndex == 0) ? "X" : "O")} wins!"));
+                                UpdateStatus($"Room {room.RoomId}: Player {((playerIndex == 0) ? "X" : "O")} wins!");
+                            }
+                            else if (IsBoardFull(room))
+                            {
+                                room.GameStatus = Common.GameStatus.GameOver;
+                                BroadcastToRoom(room, Common.FormatMessage("GAMEOVER", "Draw!"));
+                                UpdateStatus($"Room {room.RoomId}: Draw!");
+                            }
+                            else
+                            {
+                                room.CurrentPlayerIndex = 1 - room.CurrentPlayerIndex;
+                                UpdateStatus($"Room {room.RoomId}: Player {((room.CurrentPlayerIndex == 0) ? "X" : "O")}'s turn");
+                            }
+                        }
+                    }
+                    else if (command == "CHAT")
+                    {
+                        BroadcastToRoom(room, Common.FormatMessage("CHAT", $"Player {playerIndex + 1}: {data}"));
+                    }
+                    else if (command == "RESTART" && room.GameStatus == Common.GameStatus.GameOver)
+                    {
+                        room.InitializeBoard();
+                        room.GameStatus = Common.GameStatus.Playing;
+                        room.CurrentPlayerIndex = 0;
+                        BroadcastToRoom(room, Common.FormatMessage("RESTART", ""));
+                        UpdateStatus($"Room {room.RoomId}: Game restarted. Player X's turn.");
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                if (room.Players.Contains(client))
+                {
+                    room.Players.Remove(client);
+                    UpdateStatus($"Room {room.RoomId}: Player disconnected. {room.Players.Count}/2 players.");
+                    BroadcastToRoom(room, Common.FormatMessage("DISCONNECT", $"Player {playerIndex + 1} disconnected"));
+
+                    if (room.GameStatus == Common.GameStatus.Playing)
+                    {
+                        room.GameStatus = Common.GameStatus.Waiting;
+                    }
+
+                    try { client.Close(); } catch { }
+                }
+            }
+        }
+
+
         private bool CheckWin(Room room, int row, int col)
         {
             Common.CellState player = room.Board[row, col];
